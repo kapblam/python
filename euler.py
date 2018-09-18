@@ -32,9 +32,13 @@ def primefac(n):
     while n%2==0:
         fac.append(2)
         n = n/2
+    #check for 9
+    if n == 9:
+        fac.append([3,3])
+        n = 1
     #after even step above, all remaining factors are odd, so skip 2 to avoid even
     #all composite numbers have a factor between 3 and sqrt(n)
-    for i in range(3,int(np.sqrt(n)),2):
+    for i in range(3,int(np.rint(np.sqrt(n))),2):
         #while i divides n, output i and divide
         while n%i==0:
             fac.append(i)
@@ -117,27 +121,56 @@ def sumSquare(n):
 
 #problem 7 - 10001st prime - nth prime number calculator
 def primeFind(n):
-    primes = [2,3,5,7,11,13]
-    num = 14
-    count = 6
-    while count <= n-1:
-        for v in primes:
-            if num%v == 0:
-                num = num+1
-                break
-            else:
-                primes.append(num)
-                count = count +1
-                num = num+1
-                break
-    return primes
+    primes = [2,3,5,7]
+    num = 9
+    count = 3
+    while count < n-1:
+        flag = 0
+        for v in range(len(primes)):
+            mod = [num%x for x in primes]
+            if mod[v] == 0:
+                flag = 1
+        if flag:
+            num = num + 2
+        elif not flag:
+            primes.append(num)
+            num = num + 2
+            count = count + 1
+    return primes[n-1]
 
+#same thing as problem 7 above just using prime factorization instead
+#note this method is orders of magnitude quicker than the direct approach above.
+#USE THIS INSTEAD of primeFind()!
+def primeFindFact(n):
+    primes = [2]
+    num = 3
+    count = 0
+    while count < n-1:
+        if primefac(num) == [num]:
+            primes.append(num)
+            num = num + 2
+            count = count + 1
+        else:
+            num = num + 2
+    return primes[n-1]
 
+#interesting method for #7 on the internet -- this soultion is correct - investigate other methods.
+def primefind2(n):
+    primes = [2]
+    attempt = 3
+    while len(primes) < n:
+        if all(attempt%x != 0 for x in primes):
+            primes.append(attempt)
+        attempt += 2
+
+    return primes[n-1]
 
 print(mult35(1000))
 print(fibsum(4000000)[1])
-print(primefac(600851475143))
-# print(palindrome(3))
-# print(smallestMultiple(20))
+print(primefac(15))
+print(palindrome(2))
+#print(smallestMultiple(20))
 print(sumSquare(100))
-print(primeFind(10))
+print(primeFindFact(10001))
+#print(primeFind(9))
+print(primefind2(10001))
