@@ -59,8 +59,10 @@ def palindrome(s):
     a = 0
     b = 0
     orig = 0
-    for i in range(s):
+    i = 0
+    while i in range(s):
         a = int(str(a) + str(9))
+        i += 1
     b = a
     orig = a
 
@@ -228,7 +230,7 @@ def problem10(n):
     return output
 
 
-# Problem 10 again, but let's try using the Sieve of Eratosthenes:  Does not finish in reasonable 
+# Problem 10 again, but let's try using the Sieve of Eratosthenes:  Does not finish in reasonable
 # time (waiting 1hr plus...)
 def sieveOfEratosthenes(n):
     # Generate list of numbers from 2 to n.  Remember 1 is NOT a prime number
@@ -255,7 +257,6 @@ def sieveOfEratosthenes(n):
     return sum
 
 
-
 # print(mult35(1000))
 # print(fibsum(4000000)[1])
 # print(primefac(600851475143))
@@ -265,7 +266,7 @@ def sieveOfEratosthenes(n):
 # print(primeFindFact(10001))
 # print(primeFind(10001))
 # print(primefind2(20001))
-print(largeProductInSeries(13))
+# print(largeProductInSeries(13))
 # print(problem9())
 # print(problem10(2000000))
 # print(sieveOfEratosthenes(2000000))
